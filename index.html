@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Ace</title>
+    <style>
+        body {
+            background: linear-gradient(180deg, #181818 20%, #000000 60%);
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            padding: 40px;
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            line-height: 2;
+        }
+        h1 {
+            padding-left: 40px;
+            text-shadow: 0 0 45px #ffffff, 0 0 5px #ffffff;
+            color: #ffffff;
+        }
+        .box {
+            border: 1.35px solid #333;
+            border-radius: 7px;
+            padding: 20px;
+            width: auto;
+        }
+        .Message1 {
+            padding-left: 40px;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.25;
+            color: #ffffff;
+        }
+        .ball {
+            width: 150px;
+            height: 150px;
+            /* We keep your radial gradient shine on top of the shader */
+            background: radial-gradient(circle, transparent 58%, #e0fffd 67%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #e0fffd, 0 0 60px rgba(209, 234, 255, 0.3);
+            margin: 40px;
+            overflow: hidden; /* Keeps the canvas inside the circle */
+            position: relative;
+        }
+        /* This makes the shader fill the ball perfectly */
+        #fisheyeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Puts the image behind your CSS shine */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Hello po, Papa!</h1>
+        <div class="Message1">
+            Hi po papa HAHAA, i tried learn to HTML and CSS for this pooo.. since nung March po naisipan ko na gawan po kita
+            ng ganto for our Monthsary po sana kaso po wala napo me time nun kasi papunta kana po kaya naisipan kopo na May nalang puuu.. kaso wala na po eh, want kopo i continue to para sayo po :(
+        </div>
+        <div class="ball">
+            <canvas id="fisheyeCanvas"></canvas>
+        </div>
+    </div>
+
+    <script id="vs" type="x-shader/x-vertex">
+        attribute vec2 position;
+        void main() { gl_Position = vec4(position, 0.0, 1.0); }
+    </script>
+
+    <script id="fs" type="x-shader/x-fragment">
+        precision highp float;
+        uniform vec2 u_res;
+        uniform sampler2D u_image;
+        void main() {
+            vec2 uv = (gl_FragCoord.xy - 0.5 * u_res.xy) / min(u_res.y, u_res.x) * 2.0;
+            float r = length(uv);
+            if (r < 1.0) {
+                float phi = atan(uv.y, uv.x);
+                float theta = asin(r); 
+                vec2 distUV = vec2(theta * cos(phi), theta * sin(phi)) * 0.5 + 0.5;
+                gl_FragColor = texture2D(u_image, distUV);
+            } else {
+                discard;
+            }
+        }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('fisheyeCanvas');
+        const gl = canvas.getContext('webgl');
+
+        // Setup simple geometry
+        const pts = new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]);
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, pts, gl.STATIC_DRAW);
+
+        function compile(gl, type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER, document.getElementById('vs').text));
+        gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, document.getElementById('fs').text));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        const pos = gl.getAttribLocation(prog, "position");
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // This allows loading images from other origins if needed
+        img.src = 'download.png'; // Make sure this file is in the same folder!
+
+        img.onload = () => {
+            const tex = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, tex);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+            
+            canvas.width = canvas.height = 300;
+            gl.viewport(0, 0, 300, 300);
+            gl.uniform2f(gl.getUniformLocation(prog, "u_res"), 300, 300);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+        };
+    </script>
+</body>
+</html>
