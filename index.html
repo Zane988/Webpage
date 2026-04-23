@@ -6,10 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Ace</title>
     <style>
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a, button, .item {
+            outline: none;
+        }
+        
         body {
             background: linear-gradient(180deg, #000000 20%, #0e0f13 60%);
             min-height: 1500px;
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             color: white;
             padding: 40px;
             letter-spacing: 2px;
@@ -26,7 +35,7 @@
             margin-top: 10px;
             transform: translateX(-50%);
             border-radius: 15px;
-            width: 90%;
+            width: 95%;
             height: 70px;
 
             backdrop-filter: blur(10px);
@@ -61,6 +70,7 @@
             cursor: pointer;
             
             transition: 0.2s;
+            text-decoration: none;
         }
 
         .item:hover {
@@ -69,13 +79,18 @@
             color: #bbb;
         }
 
-        
-
         .grid-bg {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: -1;
+
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 140px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 180px),
+
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 25px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 40px);  
         }
 
         h1 {
@@ -258,6 +273,10 @@
             height: 64px;
             pointer-events: none;
 
+            filter: drop-shadow(0 0 6px red)
+            drop-shadow(0 0 12px red)
+            drop-shadow(0 0 20px red);
+
             background-image: url('heart.png');
             background-size: 128px 64px;
             image-rendering: pixelated;
@@ -287,9 +306,9 @@
 <body>
     <div class="nav-wrapper">
         <div class="nav">
-            <div class="item">MAIN</div>
-            <div class="item">GALLERY</div>
-            <div class="item">MUSIC</div>
+            <a href="#main" class="item">MAIN</a>
+            <a href="#gallery" class="item">GALLERY</a>
+            <a href="#music" class="item">MUSIC</a>
         </div>
     </div>
 
@@ -427,8 +446,8 @@
             float d = length(uv);
             float z = sqrt(max(0.0, 1.0 - d * d)); 
             
-            const float PINCUSHION = 1.0; 
-            float effect_scale = 1.7;
+            const float PINCUSHION = 0.40; 
+            float effect_scale = 1.9;
             float r = (atan(d, sqrt(1.0 + d * d * PINCUSHION)) / 3.14159) * effect_scale;
             float phi = atan(uv.y, uv.x);
             
