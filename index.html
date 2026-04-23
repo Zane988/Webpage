@@ -6,9 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Ace</title>
     <style>
-
+        html {
+            scroll-behavior: smooth;
+        }
         * {
             -webkit-tap-highlight-color: transparent;
+            image-rendering: optimizeQuality;
+            text-rendering: optimizeLegibility;
+            shape-rendering: optimizeSpeed;
         }
 
         a, button, .item {
@@ -303,132 +308,140 @@
                 opacity: 0;
             }
         }
+
+        @media (max-width: 768px) {
+            .flex-stage {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="nav-wrapper">
-        <div class="nav">
-            <a href="#main" class="item">MAIN</a>
-            <a href="#gallery" class="item">GALLERY</a>
-            <a href="#music" class="item">MUSIC</a>
+    <div id="main">
+        <div class="nav-wrapper">
+            <div class="nav">
+                <a href="#main" class="item">MAIN</a>
+                <a href="#gallery" class="item">GALLERY</a>
+                <a href="#music" class="item">MUSIC</a>
+            </div>
         </div>
-    </div>
 
-    <div class="grid-bg"></div>
+        <div class="grid-bg"></div>
 
-    <div class="box">
-        <h1>Hello po, Papa!</h1>
-        
-        <div class="Message2">
-            Hi po papa HAHAA, i tried learn to HTML and CSS for this pooo.. since nung March po naisipan ko na gawan po kita
-            ng ganto for our Monthsary po sana kaso po wala napo me time nun kasi papunta kana po kaya naisipan kopo na May nalang puuu.. kaso wala na po eh, want kopo i continue to para sayo po etooo our memories po..
-            I hope you like it po, and i hope you know how much i love you po. I know po na hindi ako perfect, but i will always try to be the best for you po. I will always be here for you, no matter what happens po. I love you so much po, and i am so grateful to have you in my life po. Happy Monthsary po, and i hope we can celebrate many more together po! But i guess it's a no more na po muna :(
-            <br> 
+        <div class="box">
+            <h1>Hello po, Papa!</h1>
+            
+            <div class="Message2">
+                Hi po papa HAHAA, i tried learn to HTML and CSS for this pooo.. since nung March po naisipan ko na gawan po kita
+                ng ganto for our Monthsary po sana kaso po wala napo me time nun kasi papunta kana po kaya naisipan kopo na May nalang puuu.. kaso wala na po eh, want kopo i continue to para sayo po etooo our memories po..
+                I hope you like it po, and i hope you know how much i love you po. I know po na hindi ako perfect, but i will always try to be the best for you po. I will always be here for you, no matter what happens po. I love you so much po, and i am so grateful to have you in my life po. Happy Monthsary po, and i hope we can celebrate many more together po! But i guess it's a no more na po muna :(
+                <br> 
+                <br>
+                <br>
+                <br>
+                <br> 
+                    <p style="font-weight: bold;">
+                        I hope po ma enjoy and appreciate mo po kahit papaano po kahit medyo pangit po ata design ko huhu..
+                    </p>
+            </div>
+
             <br>
             <br>
             <br>
-            <br> 
-                <p style="font-weight: bold;">
-                    I hope po ma enjoy and appreciate mo po kahit papaano po kahit medyo pangit po ata design ko huhu..
-                </p>
+
+            <div class="flex-stage">
+                <div class="text-container text-left">
+                    <p>Remember this po? HAHAHAHAHA Yung grabe diko alam na matatakot po pala ko sa rides naun ung Octpus huhu anlala kasiiii nakakatakott pero enjoyable kasi ksama po kita nonnn, its one of my great memoriess</p>
+                </div>
+                <div class="image_coster1 img-right">
+                    <img src="coster.jpg" alt="Coaster">
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="image_coster1 img-left">
+                    <img src="pic tgether.jpg" alt="Second Image class" class="photo-crop">
+                </div>
+                <div class="text-container text-right">
+                    <p>Tas eto naman po yung nag picture booth pooo us HAHAHAHA sayang nawala wallet ko ung isan pic andon :( peroo nasa ID ko parin po ung Pic and diko tatanggalin!</p>
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="text-container text-left">
+                    <p>Eto po yung time naman na masakit ulo ko huhu inaayos kasi reporting HAHAHAA but you brought me po ng cheese sticks and milk tea, i appreciate it veryyy much papa kooo! </p>
+                </div>
+                <div class="image_coster1 img-right">
+                    <img src="school_pic.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center -320px;">
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="image_coster1 img-left">
+                    <img src="ilovethisman.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px -320px;"">
+                </div>
+                <div class="text-container text-right">
+                    <p>Tas etooo si Kry Kryy HAHAHAHAHA dinidilaan kapa sobraaa niyan dito ohh ang cuteee mopoooooo MWAAAAAHHH~ hehe But now pag binubuhat ko siya, i always say na "Sorry Kry kasalanan ko na di mo na makikita si papa.."</p>
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="text-container text-left">
+                    <p>HAHAHAHA After ng Octupus eto ung tinignan natin at pinic pooo, i always wonder po if kelan us makakasakay jan pero ako po yung mag lilibre sayoo.. Panaghinip nalang ata.</p>
+                </div>
+                <div class="image_coster1 img-right">
+                    <img src="vikings.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="image_coster1 img-left">
+                    <img src="SEAITT Days.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px center;"">
+                </div>
+                <div class="text-container text-right">
+                    <p>That time po pa, nag date muna tayo bago bumili ng J.CO nila ate HAHAHAHAHA tas ginabi tayo gagii but you still stood by my side po huhuu..</p>
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="text-container text-left">
+                    <p>I HAD SUPERRR FUN ON THIS RIDEE HAHAHAHAHAHAHA KAHIT akala mopo mahihimatay ako WHAHAHAHHA ang sarap sa feeling na kasama kita hereee kahit puro nako sigaw yawaaa HAHHWHHWAHHH i love this core memory!..</p>
+                </div>
+                <div class="image_coster1 img-right">
+                    <img src="before_disaster.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="image_coster1 img-left">
+                    <img src="arcade.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px center;"">
+                </div>
+                <div class="text-container text-right">
+                    <p>HAHAHA andami natin ticket po ehhh tas remember one time kala natin nasira ung converter kasi bawal dalawa dalawang ticket don? HAHAAHAHAHAHA..</p>
+                </div>
+            </div>
+
+            <div class="flex-stage">
+                <div class="text-container text-left">
+                    <p>Last but not the least.. is this! I remember this after ng HAHAHAHA sa sobrang kakilig ko dina maayos muka ko jaan.. I love this memory.. Thank you po papa!</p>
+                </div>
+                <div class="image_coster1 img-right">
+                    <img src="last_memory.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
+                </div>
+            </div>
+
+            <div class="ball-wrapper">
+                <div class="ball">
+                    <canvas id="fisheyeCanvas"></canvas>
+                    <div class="ball--static"></div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
-
-        <br>
-        <br>
-        <br>
-
-        <div class="flex-stage">
-            <div class="text-container text-left">
-                <p>Remember this po? HAHAHAHAHA Yung grabe diko alam na matatakot po pala ko sa rides naun ung Octpus huhu anlala kasiiii nakakatakott pero enjoyable kasi ksama po kita nonnn, its one of my great memoriess</p>
-            </div>
-            <div class="image_coster1 img-right">
-                <img src="coster.jpg" alt="Coaster">
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="image_coster1 img-left">
-                <img src="pic tgether.jpg" alt="Second Image class" class="photo-crop">
-            </div>
-            <div class="text-container text-right">
-                <p>Tas eto naman po yung nag picture booth pooo us HAHAHAHA sayang nawala wallet ko ung isan pic andon :( peroo nasa ID ko parin po ung Pic and diko tatanggalin!</p>
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="text-container text-left">
-                <p>Eto po yung time naman na masakit ulo ko huhu inaayos kasi reporting HAHAHAA but you brought me po ng cheese sticks and milk tea, i appreciate it veryyy much papa kooo! </p>
-            </div>
-            <div class="image_coster1 img-right">
-                <img src="school_pic.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center -320px;">
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="image_coster1 img-left">
-                <img src="ilovethisman.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px -320px;"">
-            </div>
-            <div class="text-container text-right">
-                <p>Tas etooo si Kry Kryy HAHAHAHAHA dinidilaan kapa sobraaa niyan dito ohh ang cuteee mopoooooo MWAAAAAHHH~ hehe But now pag binubuhat ko siya, i always say na "Sorry Kry kasalanan ko na di mo na makikita si papa.."</p>
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="text-container text-left">
-                <p>HAHAHAHA After ng Octupus eto ung tinignan natin at pinic pooo, i always wonder po if kelan us makakasakay jan pero ako po yung mag lilibre sayoo.. Panaghinip nalang ata.</p>
-            </div>
-            <div class="image_coster1 img-right">
-                <img src="vikings.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="image_coster1 img-left">
-                <img src="SEAITT Days.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px center;"">
-            </div>
-            <div class="text-container text-right">
-                <p>That time po pa, nag date muna tayo bago bumili ng J.CO nila ate HAHAHAHAHA tas ginabi tayo gagii but you still stood by my side po huhuu..</p>
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="text-container text-left">
-                <p>I HAD SUPERRR FUN ON THIS RIDEE HAHAHAHAHAHAHA KAHIT akala mopo mahihimatay ako WHAHAHAHHA ang sarap sa feeling na kasama kita hereee kahit puro nako sigaw yawaaa HAHHWHHWAHHH i love this core memory!..</p>
-            </div>
-            <div class="image_coster1 img-right">
-                <img src="before_disaster.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="image_coster1 img-left">
-                <img src="arcade.jpg" alt="Second Image class" style="max-height: 450px; object-fit: cover; object-position: -50px center;"">
-            </div>
-            <div class="text-container text-right">
-                <p>HAHAHA andami natin ticket po ehhh tas remember one time kala natin nasira ung converter kasi bawal dalawa dalawang ticket don? HAHAAHAHAHAHA..</p>
-            </div>
-        </div>
-
-        <div class="flex-stage">
-            <div class="text-container text-left">
-                <p>Last but not the least.. is this! I remember this after ng HAHAHAHA sa sobrang kakilig ko dina maayos muka ko jaan.. I love this memory.. Thank you po papa!</p>
-            </div>
-            <div class="image_coster1 img-right">
-                <img src="last_memory.jpg" alt="Coaster" style="max-height: 450px; object-fit: cover; object-position: center;">
-            </div>
-        </div>
-
-        <div class="ball-wrapper">
-            <div class="ball">
-                <canvas id="fisheyeCanvas"></canvas>
-                <div class="ball--static"></div>
-            </div>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
 
     <script id="vs" type="x-shader/x-vertex">
@@ -639,6 +652,14 @@
         }
 
         animate();
+
+        function showSection(id) 
+        {
+            document.querySelectorAll('#main, #gallery, #music')
+                .forEach(el => el.style.display = 'none');
+
+            document.getElementById(id).style.display = 'block';
+        }
     </script>
 </body>
 </html>
