@@ -9,6 +9,7 @@
         html {
             scroll-behavior: smooth;
         }
+
         * {
             -webkit-tap-highlight-color: transparent;
             image-rendering: optimizeQuality;
@@ -98,6 +99,7 @@
                 repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 40px);  
 
             will-change: transform;
+            background-size: 20% 20%;
         }
 
         h1 {
@@ -192,6 +194,7 @@
         .img-left img {
             -webkit-mask-image: linear-gradient(to left, transparent 10%, black 70%);
             mask-image: linear-gradient(to left, transparent 10%, black 70%);
+            
         }
 
         .photo-crop {
@@ -309,7 +312,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 720px) {
             .flex-stage {
                 flex-direction: column;
             }
@@ -321,7 +324,7 @@
         <div class="nav-wrapper">
             <div class="nav">
                 <a href="#main" class="item">MAIN</a>
-                <a href="#gallery" class="item">GALLERY</a>
+                <a href="gallery.html" class="item">GALLERY</a>
                 <a href="#music" class="item">MUSIC</a>
             </div>
         </div>
