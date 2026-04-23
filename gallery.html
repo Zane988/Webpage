@@ -151,29 +151,25 @@
 
         /* Mobile Optimization */
         @media (max-width: 600px) {
-            body {
-                padding: 10px; /* Less padding so images can be bigger */
-            }
-
+            
             .nav {
-                padding-left: 20px; /* Shrink nav padding so it fits */
+                padding-left: 20px;
                 gap: 20px;
             }
 
             .box-wrapper {
-                width: 95%; /* Use more of the screen width */
-                top: 90px;  /* Move it up slightly */
+                width: 115%
             }
 
             .gallery-container {
-                /* This forces 2 columns regardless of image width */
                 column-count: 2; 
+                column-width: 50px;
                 column-gap: 10px;
                 padding: 10px;
             }
 
             .img-format {
-                margin-bottom: 10px; /* Tighter vertical spacing */
+                margin-bottom: 10px;
             }
         }
      </style>
