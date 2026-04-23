@@ -67,7 +67,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* buttons */
         .item {
             color: white;
             font-family: Arial, sans-serif;
@@ -120,27 +119,33 @@
         }
 
         .box {
+            position: relative;
             border: 1.35px solid #333;
             border-radius: 7px;
-            padding: 20px;
-            width: auto;
+            
+            width: 100%;
+
             min-height: 100vh; 
             display: flex;
             flex-direction: column;
+            padding: 20px 40px;
+            box-sizing: border-box;
         }
 
         .Message2 {
-            padding: 0 40px;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.8;
-            color: #e0e0e0;
-            margin-bottom: 40px;
+            margin: 20px auto;
+            width: 90%;
+            box-sizing: border-box;
+            padding: 20px 20px 20px 20px; 
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 13px;
             text-align: center;
-
+            color: #e0e0e0;
+            backdrop-filter: blur(5px);
         }
 
-        /* --- FLEX LAYOUT --- */
         .flex-stage {
             display: flex;
             align-items: center;
@@ -153,7 +158,7 @@
         .text-container {
             flex: 1;
             top: 0;
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             line-height: 1.6;
         }
@@ -162,14 +167,14 @@
             text-align: left;
             top: 0;
             font-weight: 400;
-            margin-left: 60px;
+            margin-left: 40px;
         }
 
         .text-right {
             text-align: right;
             top: 0;
             font-weight: 400;
-            margin-right: 40px;
+            margin-right: 30px;
         }
 
         .image_coster1 {
@@ -208,7 +213,6 @@
             transform: scale(0.8);
         }
 
-        /* --- BALL STYLING --- */
         .ball-wrapper {
             position: relative;
             width: min(30vw, 200px);
@@ -297,13 +301,11 @@
             animation: heartAnim 0.4s steps(2) infinite, fly 5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* 2-frame sprite */
         @keyframes heartAnim {
             from { background-position: 0 0; }
             to   { background-position: -128px 0; }
         }
 
-        /* movement */
         @keyframes fly 
         {
             to {
@@ -312,9 +314,70 @@
             }
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 600px) 
+        {
             .flex-stage {
                 flex-direction: column;
+            }
+
+            h1 {
+                font-size: 35px;
+            }
+
+            .box
+            {
+                transform: translateX(-50%);
+                flex-direction: column;
+                left: 50%;
+                width: 105%;
+            }
+
+            .Message2 {
+                padding: 20px 20px; 
+                font-size: 13px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+            .text-container {
+                font-size: 13px;
+            }
+
+            .text-right, .text-left {
+                text-align: center;
+                margin: 0;
+            }
+
+            .flex-stage {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .image_coster1 img {
+                order: 1;
+                max-height: 350px; 
+                object-position: center !important;
+            }
+
+            .img-left img, .img-right img {
+                -webkit-mask-image: none;
+                mask-image: none;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .text-left, .text-right {
+                margin: 0;
+                order: 2;
+                text-align: center;
+            }
+
+            .nav {
+                padding-left: 20px;
+                gap: 20px;
             }
         }
     </style>
@@ -339,7 +402,6 @@
                 ng ganto for our Monthsary po sana kaso po wala napo me time nun kasi papunta kana po kaya naisipan kopo na May nalang puuu.. kaso wala na po eh, want kopo i continue to para sayo po etooo our memories po..
                 I hope you like it po, and i hope you know how much i love you po. I know po na hindi ako perfect, but i will always try to be the best for you po. I will always be here for you, no matter what happens po. I love you so much po, and i am so grateful to have you in my life po. Happy Monthsary po, and i hope we can celebrate many more together po! But i guess it's a no more na po muna :(
                 <br> 
-                <br>
                 <br>
                 <br>
                 <br> 
