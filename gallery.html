@@ -22,22 +22,22 @@
         }
 
         body {
-    /* 1. Ensure the background covers the whole page even if it grows */
-    background: linear-gradient(180deg, #000000 20%, #0e0f13 60%);
-    background-attachment: fixed; 
-    min-height: 100vh;
-    
-    /* 2. Use Flex to center the child (.box-wrapper) */
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    
-    font-family: Arial, sans-serif;
-    color: white;
-    padding: 40px;
-    margin: 0; /* Reset default margin */
-    overflow-x: hidden;
-}
+            /* 1. Ensure the background covers the whole page even if it grows */
+            background: linear-gradient(180deg, #000000 20%, #0e0f13 60%);
+            background-attachment: fixed; 
+            min-height: 100vh;
+            
+            /* 2. Use Flex to center the child (.box-wrapper) */
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            
+            font-family: Arial, sans-serif;
+            color: white;
+            padding: 40px;
+            margin: 0; /* Reset default margin */
+            overflow-x: hidden;
+        }
 
         .nav-wrapper {
             position: fixed;
@@ -117,8 +117,7 @@
 
             left: 50%;
             border-radius: 15px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            
             border: 1px solid #858585;
             background: rgba(235, 235, 235, 0.045);
 
@@ -148,6 +147,34 @@
         .img-format:hover {
             transform: scale(1.02);
             box-shadow: 0 0 0 2px #fff;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px; /* Less padding so images can be bigger */
+            }
+
+            .nav {
+                padding-left: 20px; /* Shrink nav padding so it fits */
+                gap: 20px;
+            }
+
+            .box-wrapper {
+                width: 95%; /* Use more of the screen width */
+                top: 90px;  /* Move it up slightly */
+            }
+
+            .gallery-container {
+                /* This forces 2 columns regardless of image width */
+                column-count: 2; 
+                column-gap: 10px;
+                padding: 10px;
+            }
+
+            .img-format {
+                margin-bottom: 10px; /* Tighter vertical spacing */
+            }
         }
      </style>
  </head>
