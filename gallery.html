@@ -209,7 +209,7 @@
             <div class="nav">
                 <a href="index.html" class="item">MAIN</a>
                 <a href="#gallery" class="item">GALLERY</a>
-                <a href="#music" class="item">MUSIC</a>
+                <a href="music.html" class="item">MUSIC</a>
             </div>
         </div>
 
@@ -256,14 +256,6 @@
         }
 
         animate();
-
-        function showSection(id) 
-        {
-            document.querySelectorAll('#main, #gallery, #music')
-                .forEach(el => el.style.display = 'none');
-
-            document.getElementById(id).style.display = 'block';
-        }
 
         const lightbox = document.getElementById('lightbox');
         const bigImg = document.getElementById('big-img');

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Gallery</title>
+
+     <style>
+        html { scroll-behavior: smooth; }
+        * { -webkit-tap-highlight-color: transparent; image-rendering: optimizeQuality; text-rendering: optimizeLegibility; shape-rendering: optimizeSpeed; }
+        a, button, .item { outline: none; }
+
+        body {
+            background: linear-gradient(180deg, #000000 20%, #0e0f13 60%);
+            background-attachment: fixed; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            color: white;
+            padding: 40px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        .nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            margin-top: 10px;
+            transform: translateX(-50%);
+            border-radius: 15px;
+            width: 95%;
+            height: 70px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(20, 20, 20, 0.1);
+            z-index: 999;
+        }
+        
+        .nav {
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+            padding-left: 60px;
+            border-radius: 15px;
+            background: rgba(14, 14, 14, 0.85);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .item { color: white; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; text-decoration: none; }
+        .item:hover { transform: scale(1.1); color: #bbb; }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 140px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 180px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 25px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 40px);
+            background-size: 20% 20%;
+        }
+
+        /* --- Player Layout --- */
+        .music-row { display: flex; justify-content: center; align-items: center; gap: 30px; }
+
+        @property --song-color {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: rgba(34, 34, 34, 1);
+        }
+        
+        .box-music-bg {
+            position: relative;
+            width: 270px;
+            height: 290px;
+            border-radius: 15px;
+            background: rgba(235, 235, 235, 0.045);
+            border: 1px solid #858585;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center;
+            padding: 20px;
+            
+            z-index: 1;
+        }
+
+        .box-music-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 20%, var(--song-color) 100%);
+            transition: opacity 0.8s ease, --song-color 1.5s ease-in-out;
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .box-music-bg.is-playing::after {
+            opacity: 0.56;
+        }
+
+        .box-music-cover {
+            width: 250px; 
+            height: 220px;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            background-image: url("no-image.png");
+            background-color: #222;
+            margin-bottom: 15px;
+        }
+
+        .box-music-cover img {
+            
+            width: 250px;
+            height: 220px;
+            object-fit: cover; 
+            object-position: center; 
+            border-radius: 15px;
+        }
+
+        .song-li-name { 
+            margin: 10px 0 0 0;
+            font-size: 13px; 
+            font-weight: bold;
+        }
+
+        .song-li-author { 
+            margin: 5px 0 0 0;
+            font-size: 9px; 
+            color: #aaa; 
+        }
+
+        @property --x1 { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+        @property --y1 { syntax: '<percentage>'; inherits: false; initial-value: 30%; }
+        @property --x2 { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
+        @property --y2 { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+        @property --x3 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+        @property --y3 { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
+
+        .box-an-bg {
+            width: 800px;
+            height: 330px;
+            border-radius: 15px;
+            background: rgba(235, 235, 235, 0.045);
+            border: 1px solid #858585;
+            position: relative;
+            background-image: 
+                radial-gradient(ellipse at var(--x1) var(--y1), rgba(100, 100, 255, 0.07) 0%, transparent 80%),
+                radial-gradient(ellipse at var(--x2) var(--y2), rgba(150, 100, 255, 0.06) 0%, transparent 80%),
+                radial-gradient(ellipse at var(--x3) var(--y3), rgba(100, 200, 255, 0.09) 0%, transparent 80%);
+
+            transition: --x1 4s ease, --y1 4s ease, --x2 4s ease, --y2 4s ease, --x3 4s ease, --y3 4s ease;
+        }
+
+        .song-name { margin: 30px 0 0 30px; font-size: 30px; }
+        .song-author { margin: 5px 0 0 30px; font-size: 18px; color: #aaa; }
+
+        .marquee-container {
+            width: 95%; 
+            margin: 0 auto;
+            height: 1.5em;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .animate-marquee {
+            position: absolute;
+            left: 0;
+            will-change: transform;
+            animation: marquee-bounce 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes marquee-bounce {
+            0% { 
+                transform: translateX(0); 
+            }
+            100% { 
+                transform: translateX(var(--bounce-dist)); 
+            }
+        }
+
+        .song-name, .song-author {
+            margin: 0;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .progress-container { 
+            width: 90%; 
+            margin: 90px auto 0 auto; 
+        }
+
+        .time-stamps { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 12px; color: #888; 
+            margin-bottom: 5px; 
+            
+        }
+
+        .progress-bar { 
+            position:  relative;  
+            width: 100%; 
+            height: 4px; 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 2px; 
+        }
+
+        .progress-fill { 
+            width: 0%; 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+            height: 100%; 
+            background: white; 
+            border-radius: 2px;
+        }
+
+        .controls-wrapper {
+            position: absolute;
+            top: 230px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .side-btn { cursor: pointer; transition: 0.2s; opacity: 0.7; }
+        .side-btn:hover { transform: scale(1.2); opacity: 1; }
+
+        .play-icon {
+            width: 60px; height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .play-icon svg { width: 40px; height: 40px; fill: rgb(68, 68, 68); }
+        .play-icon:hover { transform: scale(1.1); background: #eee; }
+
+        .progress-dot {
+            position: absolute;
+            top: 50%;
+            left: 0%; 
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.1s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .progress-bar:hover .progress-dot {
+            transform: translate(-50%, -50%) scale(1.3);
+        }
+        @media (max-width: 800px) {
+            .nav { 
+                padding-left: 20px; 
+                gap: 20px; 
+            }
+
+            .box-an-bg { 
+                width: 90%; 
+                height: 200px; 
+            }
+
+            .box-music-bg { 
+                width: 83%; 
+                height: 200px; 
+            }
+
+            .music-row { 
+                flex-direction: column; 
+                align-items: center;
+                gap: 20px;
+            }
+
+            .box-music-bg { 
+                width: 90%; 
+                height: auto;
+                min-height: 250px; 
+                padding-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .box-an-bg {
+                width: 100%; 
+                height: auto;
+                min-height: 250px; 
+                padding-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .progress-container 
+            { 
+                width: 90%; 
+                margin: 40px auto 0 auto;
+            }
+
+            .controls-wrapper { 
+                position: relative;
+                top: 20px;
+                transform: none; 
+                left: 0;
+                margin-top: 20px;
+            }
+            
+            .song-name { margin-left: 0; text-align: center; font-size: 24px; }
+            .song-author { margin-left: 0; text-align: center; }
+        }
+     </style>
+ </head>
+
+ <body>
+    <div id="music">
+        <div class="nav-wrapper">
+            <div class="nav">
+                <a href="index.html" class="item">MAIN</a>
+                <a href="gallery.html" class="item">GALLERY</a>
+                <a href="#music" class="item">MUSIC</a>
+            </div>
+        </div>
+
+        <h1 style="margin: 65px 0 17px 23px; font-size: 24px;">Music Player</h1>
+
+        <div class="music-row">
+            <div class="box-music-bg">
+                <div class="box-music-cover"></div>
+                <p class="song-li-name" id="display-li-name">
+                    Through the Years
+                </p>
+                <p class="song-li-author" id="display-li-author">Unknown Artist</p>
+            </div>
+
+            <div class="box-an-bg">
+                <div class="marquee-container" style="margin-top: 30px;">
+                    <h3 class="song-name" id="display-name">Through the Years</h3>
+                </div>
+                <div class="marquee-container">
+                    <p class="song-author" id="display-author">Unknown Artist</p>
+                </div>
+
+                <div class="progress-container">
+                    <div class="time-stamps">
+                        <span id="curr-time">0:00</span>
+                        <span id="total-time">3:00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-dot" id="progress-dot"></div>
+                    </div>
+                </div>
+
+                <div class="controls-wrapper">
+                    <div class="side-btn" onclick="prevSong()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M6 6h2v12H6zm3.5 6L19 18V6z"/></svg>
+                    </div>
+
+                    <div class="play-icon" id="play-trigger">
+                        <svg id="play-svg" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+
+                    <div class="side-btn" onclick="nextSong()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-bg"></div>
+    </div>
+
+    <script>
+        const musicEngine = new Audio();
+
+        let playlist = [];
+        let currentIndex = 0;
+        let isPlaying = false;
+
+        const songNameEl = document.getElementById('display-name');
+        const songAuthorEl = document.getElementById('display-author');
+
+        const songNameLi = document.getElementById('display-li-name');
+        const songAuthorLi = document.getElementById('display-li-author');
+
+        const playBtn = document.getElementById('play-trigger');
+        const playSvg = document.getElementById('play-svg');
+
+        async function loadPlaylist() 
+        {
+            const response = await fetch('musics.json'); //so its a fetch huh
+            const data = await response.json();
+            playlist = data.musics;
+            updatePlayer();
+        }
+
+        const coverEl = document.querySelector('.box-music-bg');
+
+        function updatePlayer() 
+        {
+            if (playlist.length > 0) 
+            {
+                const song = playlist[currentIndex];
+
+                songNameEl.innerText = song.name;
+                songAuthorEl.innerText = song.author || "Unknown Artist";
+                songNameLi.innerText = song.name;
+                songAuthorLi.innerText = song.author || "Unknown Artist";
+
+                if (song.color) {
+                    coverEl.style.setProperty('--song-color', song.color);
+                } else {
+                    coverEl.style.setProperty('--song-color', '#222');
+                }
+
+                const coverl = document.querySelector('.box-music-cover');
+
+                if (song.icon) 
+                {
+                    coverl.style.backgroundImage = `url('${song.icon}.jpg')`;
+                    coverl.style.backgroundSize = 'cover'; 
+                    coverl.style.backgroundPosition = 'center';
+                } 
+                else 
+                {
+                    coverl.style.backgroundImage = `url('no-image.png')`;
+                }
+
+                handleMarquee(songNameEl);
+                handleMarquee(songAuthorEl);
+                
+                musicEngine.src = song.file;
+                document.getElementById('progress-fill').style.width = '0%';
+            }
+        }
+
+        const mobileQuery = window.matchMedia("(max-width: 800px)");
+
+        function handleMarquee(element) 
+        {
+            const container = element.parentElement;
+
+            element.style.width = 'auto'; 
+            element.style.display = 'inline-block';
+            element.classList.remove('animate-marquee');
+            element.style.transform = "translateX(0)";
+            
+            setTimeout(() => {
+                element.style.width = 'auto'; 
+                
+                const containerWidth = container.offsetWidth;
+                const textWidth = element.scrollWidth;
+
+                if (textWidth > containerWidth) 
+                {
+                    const overflow = textWidth - containerWidth;
+                    const bounceDistance = overflow + (mobileQuery.matches ? 8 : 90);
+                    element.style.setProperty('--bounce-dist', `-${bounceDistance}px`);
+                    element.classList.add('animate-marquee');
+                    element.style.textAlign = 'left';
+                }
+            }, 100);
+        }
+
+        function nextSong() 
+        {
+            currentIndex = (currentIndex + 1) % playlist.length;
+            updatePlayer();
+
+            if (isPlaying) 
+            {
+                musicEngine.play();
+                coverEl.classList.add('is-playing');
+            }
+        }
+
+        function prevSong() 
+        {
+            currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+            updatePlayer();
+
+            if (isPlaying) 
+            {
+                musicEngine.play();
+                coverEl.classList.add('is-playing');
+            }
+        }
+        loadPlaylist();
+
+        playBtn.addEventListener('click', () => 
+        {
+            isPlaying = !isPlaying;
+            
+            if (isPlaying) 
+            {
+                playSvg.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+                musicEngine.play();
+                coverEl.classList.add('is-playing');
+            } 
+            else 
+            {
+                playSvg.innerHTML = '<path d="M8 5v14l11-7z"/>';
+                musicEngine.pause();
+                coverEl.classList.remove('is-playing');
+            }
+        });
+
+        musicEngine.addEventListener("timeupdate", (e) => {
+            const p = (musicEngine.currentTime / musicEngine.duration) * 100;
+
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = p + "%";
+
+            const currTimeEl = document.getElementById('curr-time');
+            currTimeEl.innerText = formatTime(musicEngine.currentTime);
+
+            const totTimeEl = document.getElementById('total-time');
+            totTimeEl.innerText = formatTime(musicEngine.duration);
+
+            document.getElementById('progress-dot').style.left = p + "%";
+            if(musicEngine.currentTime >= musicEngine.duration) 
+            {
+                playSvg.innerHTML = '<path d="M8 5v14l11-7z"/>';
+                isPlaying = false;
+                coverEl.classList.remove('is-playing');
+            }
+        })
+
+        const progressBar = document.querySelector('.progress-bar');
+
+        progressBar.addEventListener('mousemove', (e) => {
+            if(e.buttons !== 1) return;
+
+            const width = progressBar.clientWidth;
+            const clickX = e.offsetX;
+            const duration = musicEngine.duration;
+
+            musicEngine.currentTime = (clickX / width) * duration;
+        });
+
+        function formatTime(s)
+        {
+            let min = Math.floor(s / 60);
+            let sec = Math.floor(s % 60);
+            if (sec < 10) sec = "0" + sec;
+            return min + ":" + sec;
+        }
+
+        // Grid Animation
+        const grid = document.querySelector(".grid-bg");
+        let x = 0, y = 0;
+        function animate() {
+            x += 0.12; y += 0.1;
+            grid.style.backgroundPosition = `0 ${y}px,${x}px 0,0 ${y * 0.4}px,${x * 0.4}px 0`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+        updatePlayer();
+
+        function randomizeGradients() 
+        {
+            const box = document.querySelector('.box-an-bg');
+        
+            const x1 = Math.floor(Math.random() * 100);
+            const y1 = Math.floor(Math.random() * 100);
+            const x2 = Math.floor(Math.random() * 100);
+            const y2 = Math.floor(Math.random() * 100);
+            const x3 = Math.floor(Math.random() * 100);
+            const y3 = Math.floor(Math.random() * 100);
+
+            box.style.setProperty('--x1', `${x1}%`);
+            box.style.setProperty('--y1', `${y1}%`);
+            box.style.setProperty('--x2', `${x2}%`);
+            box.style.setProperty('--y2', `${y2}%`);
+            box.style.setProperty('--x3', `${x3}%`);
+            box.style.setProperty('--y3', `${y3}%`);
+        }
+        randomizeGradients();
+
+        setInterval(randomizeGradients, 3000);
+
+        window.addEventListener('resize', () => {
+            handleMarquee(songNameEl);
+            handleMarquee(songAuthorEl);
+        });
+    </script>
+ </body>
+</html>
