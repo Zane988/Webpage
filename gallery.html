@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Gallery</title>
+
+     <style>
+         html {
+            scroll-behavior: smooth;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            image-rendering: optimizeQuality;
+            text-rendering: optimizeLegibility;
+            shape-rendering: optimizeSpeed;
+        }
+
+        a, button, .item {
+            outline: none;
+        }
+
+        body {
+    /* 1. Ensure the background covers the whole page even if it grows */
+    background: linear-gradient(180deg, #000000 20%, #0e0f13 60%);
+    background-attachment: fixed; 
+    min-height: 100vh;
+    
+    /* 2. Use Flex to center the child (.box-wrapper) */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 40px;
+    margin: 0; /* Reset default margin */
+    overflow-x: hidden;
+}
+
+        .nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            margin-top: 10px;
+            transform: translateX(-50%);
+            border-radius: 15px;
+            width: 95%;
+            height: 70px;
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            background: rgba(20, 20, 20, 0.1);
+
+            z-index: 999;
+        }
+        
+        .nav {
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+            padding-left: 60px;
+
+            border-radius: 15px;
+            align-items: center;
+
+            background: rgba(14, 14, 14, 0.85);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* buttons */
+        .item {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .item:hover {
+            transform: scale(1.1);
+            border-bottom: 2px solid #333;
+            color: #bbb;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 140px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 180px),
+
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 25px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0 1px, transparent 1px 40px);  
+
+            will-change: transform;
+            background-size: 20% 20%;
+        }
+
+        .box-wrapper {
+            position: relative; 
+            margin-top: 100px;
+            margin-bottom: 50px;
+            
+            width: 95%;
+            transform: translateX(-50%);
+
+            left: 50%;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid #858585;
+            background: rgba(235, 235, 235, 0.045);
+
+        }
+
+        .img-format {
+            display: block;
+            width: 100%; 
+            margin-bottom: 8px; 
+            border-radius: 20px;
+            break-inside: avoid; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        .img-format:active {
+            filter: blur(3px);
+        }
+
+        .gallery-container {
+            column-width: 250px;
+            column-gap: 10px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .img-format:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 2px #fff;
+        }
+     </style>
+ </head>
+ <body>
+    <div id="gallery">
+        <div class="nav-wrapper">
+            <div class="nav">
+                <a href="index.html" class="item">MAIN</a>
+                <a href="#gallery" class="item">GALLERY</a>
+                <a href="#music" class="item">MUSIC</a>
+            </div>
+        </div>
+
+        <div class="grid-bg"></div>
+
+        <div class="box-wrapper">
+            <div class="gallery-container">
+                <img src="school_pic.jpg" alt="Gallery Image 1" class="img-format">
+                <img src="SEAITT Days.jpg" alt="Gallery Image 2" class="img-format">
+                <img src="vikings.jpg" alt="Gallery Image 3" class="img-format">
+                <img src="ilovethisman.jpg" alt="Gallery Image 6" class="img-format">
+                <img src="arcade.jpg" alt="Gallery Image 4" class="img-format">
+                <img src="coster.jpg" alt="Gallery Image 5" class="img-format">
+                <img src="pic tgether.jpg" alt="Gallery Image 6" class="img-format">
+                <img src="before_disaster.jpg" alt="Gallery Image 7" class="img-format">
+                <img src="grad.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="grad2.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="buldak.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="scl.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="a.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="s.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="pic_e.jpg" alt="Gallery Image 8" class="img-format">
+                <img src="me.jpg" alt="Gallery Image 8" class="img-format">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const grid = document.querySelector(".grid-bg");
+
+        let x = 0;
+        let y = 0;
+
+        function animate() {
+            x += 0.12;  // horizontal speed
+            y += 0.1;  // vertical speed
+
+            grid.style.backgroundPosition = `
+                0 ${y}px,
+                ${x}px 0,
+                0 ${y * 0.4}px,
+                ${x * 0.4}px 0
+            `;
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        function showSection(id) 
+        {
+            document.querySelectorAll('#main, #gallery, #music')
+                .forEach(el => el.style.display = 'none');
+
+            document.getElementById(id).style.display = 'block';
+        }
+    </script>
+ </body>
