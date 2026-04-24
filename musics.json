@@ -5,28 +5,32 @@
             "author": "Kenny Rogers",
             "file": "songs/throughtheyears.mp3",
             "icon": "songs/icon/icon-throughtheyears",
-            "color": "#aeb8b4"
+            "color": "#aeb8b4",
+            "lrc": "lyrics/through-the-years.lrc"
         },
         {
             "name": "Love Story",
             "author": "Idila",
             "file": "songs/lovestory.mp3",
             "icon": "songs/icon/icon-lovestory",
-            "color": "#ca3939"
+            "color": "#ca3939",
+            "lrc": "lyrics/love-story.lrc"
         },
         {
             "name": "Maybe This Time",
             "author": "Michael Martin Murphey",
             "file": "songs/maybethistime.mp3",
             "icon": "songs/icon/icon-maybethistime",
-            "color": "#7993c4"
+            "color": "#FFD986",
+            "lrc": "lyrics/maybe-this-time.lrc"
         },
         {
             "name": "MASK (Gangle's Song) Feat. Marissa Lenti",
             "author": "Gabe & Nate brown (Black Gryph0n & Baasik), Max Vernon",
             "file": "songs/mask.mp3",
             "icon": "songs/icon/icon-mask",
-            "color": "#fc0303"
+            "color": "#fc0303",
+            "lrc": "lyrics/mask.lrc"
         }
 
     ]
