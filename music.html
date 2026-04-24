@@ -3,7 +3,7 @@
  <head>
      <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>Gallery</title>
+     <title>Music</title>
 
      <style>
         html { scroll-behavior: smooth; }
@@ -23,36 +23,70 @@
             overflow-x: hidden;
         }
 
-        /* --- Navigation --- */
         .nav-wrapper {
             position: fixed;
             top: 0;
             left: 50%;
-            margin-top: 10px;
             transform: translateX(-50%);
-            border-radius: 15px;
-            width: 95%;
+            width: 100%;
             height: 70px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(20, 20, 20, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
             z-index: 999;
         }
         
         .nav {
             height: 100%;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
-            gap: 40px;
-            padding-left: 60px;
-            border-radius: 15px;
-            background: rgba(14, 14, 14, 0.85);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 30px;
+            justify-content: space-between;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            background: rgba(190, 190, 190, 0.09);
+        }
+
+        .header-format {
+            position: absolute; 
+            font-size: 28px;
+            font-weight: 600;
+            margin-left: 10%;
+            padding-left: 50px;
+            padding-top: 2px;
+        }
+
+        .nav-icon {
+            height: 40px;
+            width: auto;
+            margin-left: 10%;
+            cursor: pointer;
+        }
+
+        .nav-items {
+            display: flex;
+            margin-right: 10%;
+            gap: 30px;
+        }
+
+        .nav-text {
+            display: inline;
+        }
+
+        .nav-img {
+            display: none;
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
         }
 
         .item { color: white; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; text-decoration: none; }
         .item:hover { transform: scale(1.1); color: #bbb; }
+
+        .nav-indicator {
+            display: none;
+        }
 
         .grid-bg {
             position: fixed;
@@ -67,7 +101,7 @@
             background-size: 20% 20%;
         }
 
-        .music-row { margin-top: 110px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .music-row { margin-top: 50px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .music-nav-row { 
             margin-top: 10px;
             display: flex; 
@@ -110,7 +144,7 @@
             z-index: -1;
             border-radius: 15px;
             
-            background-size: 100% 200%; /* Make it twice as tall */
+            background-size: 100% 200%;
             animation: as 5s ease-in-out infinite alternate;
         }
 
@@ -423,18 +457,105 @@
         }
 
         @media (max-width: 800px) {
-            .nav { 
-                padding-left: 20px; 
-                gap: 20px; 
+            .nav-wrapper {
+                top: auto;
+                bottom: 0;
+                height: 70px;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                box-shadow: none;
             }
 
-            .music-row, 
+            .nav {
+                background: linear-gradient(
+                    to top,
+                    rgba(0,0,0,1) 0%,
+                    rgba(0,0,0,0.85) 25%,
+                    rgba(0,0,0,0.6) 55%,
+                    rgba(0,0,0,0.3) 80%,
+                    transparent 100%
+                );
+                border-radius: 0;
+                height: 100%;
+                justify-content: center;
+            }
+
+            .header-format,
+            .nav-icon {
+                display: none;
+            }
+
+            .nav-text {
+                display: none;
+            }
+
+            .nav-img {
+                display: block;
+                width: 32px;
+                height: 32px;
+                filter: brightness(0) invert(1);
+            }
+
+            .item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-items {
+                width: 100%;
+                justify-content: center;
+                gap: 70px;
+                margin: 0;
+            }
+
+            body {
+                padding-bottom: 100px;
+            }
+
+            .nav-indicator {
+                display: block;
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                transform: translateX(315%);
+                width: 28px;
+                height: 28px;
+
+                animation: float1 4s ease-in-out infinite;
+
+                transition: none;
+                pointer-events: none;
+            }
+
+            @keyframes float1 {
+                0% {
+                    transform: translateY(0px) translateX(315%);
+                }
+                50% {
+                    transform: translateY(-8px) translateX(315%);
+                }
+                100% {
+                    transform: translateY(0px) translateX(315%);
+                }
+            }
+
+            /*6767676767677676767676767676767676*/
+
+            .music-row { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 10px;
+                width: 100%;
+                margin-top: -10px;
+            }
+
             .music-nav-row { 
                 flex-direction: column; 
                 align-items: center; 
-                gap: 20px;
+                gap: 10px;
                 width: 100%;
-                margin-top: 20px;
+                margin-top: 10px;
             }
 
             .box-music-bg{ 
@@ -504,17 +625,35 @@
     <div id="music">
         <div class="nav-wrapper">
             <div class="nav">
-                <a href="index.html" class="item">MAIN</a>
-                <a href="gallery.html" class="item">GALLERY</a>
-                <a href="#music" class="item">MUSIC</a>
+                <p class="header-format">
+                    Music
+                </p>
+                <img src="icon/favicon.ico" alt="Icon" class="nav-icon">
+
+                <div class="nav-items">
+                    <img src="icon/favicon.ico" class="nav-indicator">
+
+                    <a href="index.html" class="item">
+                        <span class="nav-text">MAIN</span>
+                        <img src="icon/memories.png" class="nav-img">
+                    </a>
+
+                    <a href="gallery.html" class="item">
+                        <span class="nav-text">GALLERY</span>
+                        <img src="icon/gallery.png" class="nav-img">
+                    </a>
+
+                    <a href="#music" class="item">
+                        <span class="nav-text">MUSIC</span>
+                        <img src="icon/music.png" class="nav-img">
+                    </a>
+                </div>
             </div>
         </div>
         
         <div class="music-row">
             <div class="box-music-bg">
-                <h1 style="margin: 0px 0 0px -100px; position: absolute; top: -50px; font-size: 32px;">
-                    Music Player
-                </h1>
+                
                 <div class="box-music-cover"></div>
                 <p class="song-li-name" id="display-li-name">
                     Through the Years
@@ -804,7 +943,7 @@
             return min + ":" + sec;
         }
 
-        // Grid Animation
+        //pls i hate this idk how to put it in single foeelarafaaf
         const grid = document.querySelector(".grid-bg");
         let x = 0, y = 0;
         function animate() {
@@ -815,6 +954,7 @@
         animate();
         updatePlayer();
 
+        //Hell
         function randomizeGradients() 
         {
             const box = document.querySelector('.box-an-bg');
