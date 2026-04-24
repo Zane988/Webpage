@@ -663,8 +663,9 @@
                 return;
             }
 
-            const res = await fetch(url);
+            const res = await fetch(url + '.txt');
             const text = await res.text();
+            console.log("ly: ", text);
             
             const notag = text.replace(/\[.*?\]/g, '').trim();
             
