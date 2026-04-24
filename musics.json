@@ -6,7 +6,7 @@
             "file": "songs/throughtheyears.mp3",
             "icon": "songs/icon/icon-throughtheyears",
             "color": "#aeb8b4",
-            "lrc": "lyrics/through-the-years.lrc"
+            "lrc": "lyrics/through-the-years"
         },
         {
             "name": "Love Story",
@@ -14,7 +14,7 @@
             "file": "songs/lovestory.mp3",
             "icon": "songs/icon/icon-lovestory",
             "color": "#ca3939",
-            "lrc": "lyrics/love-story.lrc"
+            "lrc": "lyrics/love-story"
         },
         {
             "name": "Maybe This Time",
@@ -22,7 +22,7 @@
             "file": "songs/maybethistime.mp3",
             "icon": "songs/icon/icon-maybethistime",
             "color": "#FFD986",
-            "lrc": "lyrics/maybe-this-time.lrc"
+            "lrc": "lyrics/maybe-this-time"
         },
         {
             "name": "MASK (Gangle's Song) Feat. Marissa Lenti",
@@ -30,8 +30,7 @@
             "file": "songs/mask.mp3",
             "icon": "songs/icon/icon-mask",
             "color": "#fc0303",
-            "lrc": "lyrics/mask.lrc"
+            "lrc": "lyrics/mask"
         }
-
     ]
 }
